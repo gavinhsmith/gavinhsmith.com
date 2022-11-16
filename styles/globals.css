@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
 html,
 body {
   padding: 0;
@@ -23,4 +28,11 @@ a {
     color: white;
     background: black;
   }
+}
+*/
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', Courier, monospace;
 }
