@@ -1,7 +1,7 @@
 export const LINK_SYMBOLS = {
     NAME: {
-        OPEN: "<",
-        CLOSE: ">"
+        OPEN: "[",
+        CLOSE: "]"
     },
     LINK: {
         OPEN: "(",
@@ -9,7 +9,7 @@ export const LINK_SYMBOLS = {
     }
 }
 
-export const LINK_REGEXP: RegExp = /\<(.*?)\>\((.*?)\)/;
+export const LINK_REGEXP: RegExp = new RegExp("\\" + LINK_SYMBOLS.NAME.OPEN + "(.*?)\\" + LINK_SYMBOLS.NAME.CLOSE + "\\" + LINK_SYMBOLS.LINK.OPEN + "(.*?)\\" + LINK_SYMBOLS.LINK.CLOSE);
 
 export type Link = {
     name: string,
@@ -17,32 +17,27 @@ export type Link = {
 };
 
 export function stringHasLinks(string: string): boolean {
-    return string.indexOf(LINK_SYMBOLS.NAME.OPEN) >= 0 
-        && string.indexOf(LINK_SYMBOLS.NAME.CLOSE) > string.indexOf(LINK_SYMBOLS.NAME.OPEN) 
-        && string.indexOf(LINK_SYMBOLS.LINK.OPEN) == string.indexOf(LINK_SYMBOLS.NAME.OPEN)+1 
-        && string.indexOf(LINK_SYMBOLS.LINK.CLOSE) > string.indexOf(LINK_SYMBOLS.LINK.OPEN);
+    let matched = LINK_REGEXP.exec(string);
+    return (matched !== null) ? true : false;
 }
 
-export function extactLinkStrings(string: string): string[] {
-    let res: string[] = [];
-    while (stringHasLinks(string)) {
-        res.push(string.slice(string.indexOf(LINK_SYMBOLS.NAME.OPEN), string.indexOf(LINK_SYMBOLS.LINK.CLOSE)+1));
-        string = string.slice(string.indexOf(LINK_SYMBOLS.LINK.CLOSE));
-    }
-    return res;
+export function createLinklessArray(string: string): string[] {
+    let splitter = `|SPLT991921|`; //Garbage unlikely to be in strings
+    string = string.replace(LINK_REGEXP, splitter);
+    return string.split(splitter);
 }
 
 export default function extractLinks(string: string): Link[] {
-    if (!stringHasLinks(string)) return [];
-    let links_str = extactLinkStrings(string);
-    let res: Link[] = [];
+    let result: Link[] = [];
 
-    for (let str in links_str) {
-        res.push({
-            name: str.slice(str.indexOf(LINK_SYMBOLS.NAME.OPEN)+1, str.indexOf(LINK_SYMBOLS.NAME.CLOSE)),
-            href: str.slice(str.indexOf(LINK_SYMBOLS.LINK.OPEN)+1, str.indexOf(LINK_SYMBOLS.LINK.CLOSE))
-        })
+    while(stringHasLinks(string)) {
+        let matched = <RegExpExecArray>LINK_REGEXP.exec(string);
+        result.push({
+            name: matched[1],
+            href: matched[2]
+        });
+        string = string.replace(LINK_REGEXP, "x");
     }
-    
-    return res;
+
+    return result; 
 }

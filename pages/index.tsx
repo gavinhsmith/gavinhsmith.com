@@ -7,7 +7,7 @@ import ExternalLink from "./components/Layout/ExternalLink";
 import { KeyboardEvent, useState } from "react"
 
 import {Command, CommandResponse, handleCommand} from "../modules/CommandHandler";
-import extractLinks,{ LINK_REGEXP } from "../modules/MarkdownLinkExtractor"
+import extractLinks,{ createLinklessArray } from "../modules/MarkdownLinkExtractor"
 
 export default function Home() {
   const NEW_LINES = [
@@ -32,20 +32,17 @@ export default function Home() {
     let fin_res: JSX.Element[] = [];
     
     for (let str of strings) {
-      let non_link_split = str.split(LINK_REGEXP);
-
-      console.log(non_link_split);
-
+      let non_link_split = createLinklessArray(str);
       let links = extractLinks(str);
 
+      console.info(non_link_split, links);
+
       let line: JSX.Element[] = [];
-
       for (let i = 0; i < non_link_split.length; i++) {
-
-        line.push(<span>{non_link_split[i]}</span>);
+        line.push(<span key={generateKey()}>{non_link_split[i]}</span>);
 
         if (i < links.length) {
-          line.push(<ExternalLink href={links[i].href}>{"[" + links[i].name + "]"}</ExternalLink>);
+          line.push(<ExternalLink key={generateKey()} href={links[i].href}>{"[" + links[i].name + "]"}</ExternalLink>);
         }
       }
 

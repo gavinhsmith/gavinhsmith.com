@@ -3,8 +3,11 @@ interface ConsoleLine {
     hide?: boolean
 }
 
+let keyid: number = -1;
+
 export function generateKey(): string {
-    return `cl-${Math.floor(Math.random() * 1000000)}-${(new Date()).getTime()}`;
+    keyid++;
+    return `cl-${Math.floor(Math.random() * 1000000)}-${(new Date()).getTime()}-${keyid}`;
 }
 
 export default function ConsoleLine(props: ConsoleLine) {
