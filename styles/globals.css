@@ -1,6 +1,6 @@
 html,
 body {
-  @apply bg-light;
+  @apply bg-light overflow-x-hidden;
   padding: 0;
   margin: 0;
   font-family: 'Courier New', Courier, monospace;
