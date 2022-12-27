@@ -3,9 +3,6 @@ name: Build Next.js to Static Pages
 
 # Workflow Conditions
 on:
-  push:
-    branches: ["master"]
-  
   workflow_dispatch:
   workflow_call:
 

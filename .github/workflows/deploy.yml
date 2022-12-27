@@ -27,6 +27,7 @@ concurrency:
 
 jobs:
   build:
+    name: Build Static Pages
     uses: gavinhsmith/gavinhsmith.com/.github/workflows/build.yml@master
   deploy:
     environment:
