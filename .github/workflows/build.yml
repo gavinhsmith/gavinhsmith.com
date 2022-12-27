@@ -12,7 +12,7 @@ on:
 # Perms
 permissions:
   contents: read
-  id-token: read
+  id-token: write
 
 concurrency:
   group: "build"
