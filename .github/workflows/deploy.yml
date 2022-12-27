@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   build:
-    uses: gavinhsmith/gavinhsmith.com/.github/workflows/build.yml@latest
+    uses: gavinhsmith/gavinhsmith.com/.github/workflows/build.yml@master
   deploy:
     environment:
       name: github-pages
