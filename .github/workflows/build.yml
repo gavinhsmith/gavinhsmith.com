@@ -1,8 +1,11 @@
 # Name
-name: build.yml
+name: Build Static Pages
 
 # Workflow Conditions
 on:
+  push:
+    if: ${{!startsWith(github.ref, 'refs/tags/')}}
+  
   workflow_dispatch:
   workflow_call:
 
