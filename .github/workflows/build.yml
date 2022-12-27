@@ -4,6 +4,7 @@ name: Build Static Pages
 # Workflow Conditions
 on:
   push:
+    branches: ["master"]
     if: startsWith(github.ref, 'refs/tags/') == false
   
   workflow_dispatch:
