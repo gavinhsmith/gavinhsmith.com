@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   build:
-    uses: gavinhsmith/gavinhsmith.com/.github/workflows/build.yml
+    uses: gavinhsmith/gavinhsmith.com/.github/workflows/build.yml@latest
   deploy:
     environment:
       name: github-pages
@@ -36,6 +36,14 @@ jobs:
     needs: build
     name: Deploy to GitHub Pages
     steps:
+     - name: Setup Pages
+        uses: actions/configure-pages@v2
+        with:
+          # Automatically inject basePath in your Next.js configuration file and disable
+          # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
+          #
+          # You may remove this line if you want to manage the configuration yourself.
+          static_site_generator: next
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
