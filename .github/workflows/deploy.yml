@@ -8,8 +8,8 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["master"]
-    path:
-      - 'CHANGELOG.md'
+    tags:
+      - "v*.*.*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -61,12 +61,9 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@master
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         with:
           draft: false
           prerelease: false
-          release_name: Site v${{ steps.version.outputs.current-version }}
-          tag_name: v${{ steps.version.outputs.current-version }}
-          body_path: CHANGELOG.md
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          name: Site v${{ steps.version.outputs.current-version }}
+          body_path: ${{ github.workspace }}/CHANGELOG.md

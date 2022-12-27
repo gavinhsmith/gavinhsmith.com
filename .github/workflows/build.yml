@@ -1,5 +1,5 @@
 # Name
-name: Build Next.js to Static Pages
+name: build.yml
 
 # Workflow Conditions
 on:
