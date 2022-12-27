@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 import Link from 'next/link';
 
 interface NavbarLink {
     href: string,
     current?: boolean,
-    children: string
+    children: ReactNode
 
 }
 

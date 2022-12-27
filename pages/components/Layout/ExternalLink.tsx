@@ -1,5 +1,7 @@
+import { ReactNode } from "react"
+
 interface ExternalLink {
-    children?: string,
+    children?: ReactNode,
     href: string
 }
 
