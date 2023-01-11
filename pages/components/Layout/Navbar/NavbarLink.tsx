@@ -5,6 +5,7 @@ import Link from 'next/link';
 interface NavbarLink {
     href: string,
     current?: boolean,
+    navbarDown?: boolean,
     children: ReactNode
 
 }
@@ -17,6 +18,6 @@ export default function NavbarLink(props: NavbarLink) {
     */
    
     return (
-        <Link className={'px-2 mr-2 ' + (props.current ? 'bg-grey text-light font-bold' : 'text-grey line-through')} href='#'>{(props.current ? '> ' : '') + props.children}</Link>
+        <Link className={'px-2 mr-2 ' + (props.current ? 'bg-grey text-light font-bold' : 'text-grey line-through') + " " + (props.navbarDown ? "w-full" : "")} href='#'>{(props.current ? '> ' : '') + props.children}</Link>
     )
 }
