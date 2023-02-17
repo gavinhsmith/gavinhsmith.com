@@ -10,27 +10,23 @@ import {Command, CommandResponse, handleCommand} from "../modules/CommandHandler
 import extractLinks,{ createLinklessArray } from "../modules/MarkdownLinkExtractor"
 
 export default function Home() {
-  const NEW_LINES = [
-    <ConsoleLine key={generateKey()}>info</ConsoleLine>,
-    <ConsoleLine hide key={generateKey()}>THIS WEBSITE IS STILL UNDER DEVELOPMENT...</ConsoleLine>,
-    <ConsoleLine hide key={generateKey()}>UPDATES CAN BE FOUND <ExternalLink href="https://github.com/gavinhsmith/gavinhsmith.com">[HERE]</ExternalLink>.</ConsoleLine>
-  ]
 
-  let [console_lines, setConsoleLines] = useState(NEW_LINES);
+  let [console_lines, setConsoleLines] = useState<JSX.Element[]>([]);
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+    e.currentTarget.placeholder = "";
+
     if (e.key !== "Enter" || e.currentTarget.value.length <= 0) return;
 
     let command: Command = e.currentTarget.value as Command;
 
+    // Process Command
     let response: CommandResponse = handleCommand(command);
 
     response.shift();
-
     let strings: string[] = response as string[];
 
     let fin_res: JSX.Element[] = [];
-    
     for (let str of strings) {
       let non_link_split = createLinklessArray(str);
       let links = extractLinks(str);
@@ -70,7 +66,7 @@ export default function Home() {
             <div className='overflow-hidden flex h-full flex-col justify-end'>{console_lines}</div>
             <div className='flex'>
               <span className='mr-3'>&gt; </span>
-              <input onKeyDown={handleKeyDown} className='bg-clear w-full focus:outline-none focus:border-none focus:ring-0' placeholder='' type="text" />
+              <input onKeyDown={handleKeyDown} className='bg-clear w-full focus:outline-none focus:border-none focus:ring-0' placeholder='Enter "help" for a list of all commands' type="text" />
             </div>
           </div>
         </div>
