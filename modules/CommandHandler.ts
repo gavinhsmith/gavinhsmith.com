@@ -1,10 +1,10 @@
-export type BaseCommand = 'help' | 'helloworld' | 'info';
+export type BaseCommand = 'help' | 'contact' | 'info';
 
 export type HelpCommand = `help ${BaseCommand}`;
-export type HelloWorldCommand = 'helloworld';
+export type ContactCommand = 'contact';
 export type InfoCommand = 'info';
 
-export type Command = HelpCommand | HelloWorldCommand | InfoCommand;
+export type Command = HelpCommand | ContactCommand | InfoCommand;
 
 export type CommandHelpInfo = {
     [key in BaseCommand]: string;
@@ -14,7 +14,7 @@ export type CommandResponse = [number, ...string[]];
 
 export const HELP_INFO: CommandHelpInfo = {
     'help': 'help [command]',
-    'helloworld': 'helloworld',
+    'contact': 'contact',
     'info': 'info'
 }
 
@@ -34,12 +34,12 @@ export function handleCommand(command: BaseCommand | Command): CommandResponse {
             return [0, ...str];
         }
 
-    } else if (base === "helloworld") {
-        return [0, 'Hello, World!'];
+    } else if (base === "contact") {
+        return [0, 'Reach me at:', 'Mail: [me@gavinhsmith.com](mailto:me@gavinhsmith.com)', 'GitHub: [@gavinhsmith](https://github.com/gavinhsmith/gavinhsmith.com)'];
     } else if (base === "info") {
         return [0,
-            'THIS WEBSITE IS STILL UNDER DEVELOPMENT...',
-            'UPDATES CAN BE FOUND [HERE](https://github.com/gavinhsmith/gavinhsmith.com).'
+            'Howdy!', '',
+            'My name is Gavin Smith, and I am a hard-working freelance Web/IoT Developer that is always looking for projects to take on. Wether you need a portfolio website or IT help, I have been interested in computers since I was 10 years old.'
         ];
     } else {
         return [0, "Unknown command: " + base];
