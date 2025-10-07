@@ -1,3 +1,5 @@
+> This version of my portfolio website has been archived as of 10/06/2025. My current, updated portfolio can be found at [@gavinhsmith/portfolio](https://github.com/gavinhsmith/portfolio).
+
 # gavinhsmith.com
 
 The source for [gavinhsmith.com](https://gavinhsmith.com)!
